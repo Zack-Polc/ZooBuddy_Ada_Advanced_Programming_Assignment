@@ -2,7 +2,7 @@
 
 This is the repo of Zack's submission for their assignment - Advanced Programming. 
 
-![alt text](https://imgur.com/a/F9HbiQw)
+![picutre](https://imgur.com/a/F9HbiQw)
 
 
 ## Getting Started
