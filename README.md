@@ -5,7 +5,7 @@ This is the repo of Zack's submission for their assignment - Advanced Programmin
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the software
 
 ```
 Java
@@ -14,9 +14,7 @@ Gson either through maven or gradle
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+how to get a development env running
 
 ```
 Either clone into you local environment or download master file and import into IDE
@@ -39,9 +37,7 @@ TBA
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Zack Polc**
 
 ## License
 
