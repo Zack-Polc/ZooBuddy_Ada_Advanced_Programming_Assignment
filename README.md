@@ -8,7 +8,7 @@ This is the repo of Zack's submission for their assignment - Advanced Programmin
 What things you need to install the software and how to install them
 
 ```
-Give examplesJava
+Java
 Gson either through maven or gradle
 ```
 
