@@ -1,6 +1,10 @@
 # Zoo Buddy - The zoo management system built in Java
 
 This is the repo of Zack's submission for their assignment - Advanced Programming. 
+
+![alt text](https://imgur.com/a/F9HbiQw)
+
+
 ## Getting Started
 
 ### Prerequisites
