@@ -41,7 +41,7 @@ TBA
 
 ## License
 
-Do what ever the hell you want with this licence™
+* [Do what fk you want public licence](http://www.wtfpl.net/)
 
 ## Acknowledgments
 
