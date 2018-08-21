@@ -2,7 +2,7 @@
 
 This is the repo of Zack's submission for their assignment - Advanced Programming. 
 
-![picutre](https://imgur.com/a/F9HbiQw)
+<blockquote class="imgur-embed-pub" lang="en" data-id="EyF8lR1"><a href="//imgur.com/EyF8lR1">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 
 ## Getting Started
