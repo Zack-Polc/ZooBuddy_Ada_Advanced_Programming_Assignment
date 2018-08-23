@@ -35,4 +35,8 @@ public class Pen {
     public String getType() {
         return type;
     }
+
+    public double getVolume() {
+        return volume;
+    }
 }

@@ -57,12 +57,11 @@ public class Controller {
     int customPenVolume;
     int customPenTemp;
 
-    // height of 1 is to ignore height axis
-    Pen land = new Pen("land", 1, 25);
-    Pen water = new Pen("water", 1, 25);
-    Pen air = new Pen("air", 1, 25);
-    Pen mixed = new Pen("mixed", 1, 25);
-    Pen petting = new Pen("petting", 1, 25);
+    Pen land = new Pen("land", 18, 25);
+    Pen water = new Pen("water", 10, 25);
+    Pen air = new Pen("air", 10, 25);
+    Pen mixed = new Pen("mixed", 13, 25);
+    Pen petting = new Pen("petting", 15, 24);
     Pen customPen = new Pen(customPenType, customPenTemp, customPenVolume);
 
 
@@ -153,6 +152,8 @@ public class Controller {
         customPen.setTemperature(customPenTemp);
         customPen.setVolume(customPenVolume);
 
+        numberOfAnimalsCanFit = customPenVolume;
+
         customPenTypeInsideDropDown = customPenType;
         System.out.println(customPen);
     }
@@ -186,15 +187,19 @@ public class Controller {
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aviary") && hardipCheckbox.isSelected()) {
-            keepers.put(hardip, airPens);
+            keepersAndAnimals.put(hardip, airPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("mixed") && alexCheckbox.isSelected()) {
-            keepers.put(alex, mixedPens);
+            keepersAndAnimals.put(alex, mixedPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("petting") && alanCheckbox.isSelected()) {
-            keepers.put(alan, pettingPens);
+            keepersAndAnimals.put(alan, pettingPens);
+            System.out.println(keepersAndAnimals);
+        }
+        if (penType.equals("custom")) {
+            keepersAndAnimals.put(alan, customPens);
             System.out.println(keepersAndAnimals);
         }
     }
@@ -219,13 +224,13 @@ public class Controller {
         animalType = animalTypeDropDown.getValue().toString();
 
         if (animalType.equals("Cat")) {
-            Cat cat = new Cat("cat", 4, petting);
             if (pettingAnimals.size() <= numberOfAnimalsCanFit) {
+                Cat cat = new Cat("cat", 4, petting);
                 pettingAnimalCounter.setText("petting: " + pettingAnimalSize);
                 pettingAnimals.add(cat);
                 pettingPens.put(petting, pettingAnimals);
                 System.out.println(Arrays.asList(pettingPens));
-            } else if (pettingAnimals.size() > numberOfAnimalsCanFit) {
+            } else if (petting.getVolume() < numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }
         }
@@ -321,11 +326,12 @@ public class Controller {
         String selectedPenType;
 
         // arraylist start at 0 so we plus 1 to size.
-        int landAnimalSize = landAnimals.size() + 1;
-        int waterAnimalSize = waterAnimals.size() + 1;
-        int airAnimalSize = airAnimals.size() + 1;
-        int pettingAnimalSize = pettingAnimals.size() + 1;
-        int mixedAnimalSize = mixedAnimals.size() + 1;
+        int landAnimalSize = landAnimals.size();
+        int waterAnimalSize = waterAnimals.size();
+        int airAnimalSize = airAnimals.size();
+        int pettingAnimalSize = pettingAnimals.size();
+        int customAnimalSize = customAnimals.size();
+        int mixedAnimalSize = mixedAnimals.size();
 
         landAnimalCounter.setText("land: " + landAnimals.size());
         waterAnimalCounter.setText("water: " + waterAnimals.size());
@@ -405,7 +411,7 @@ public class Controller {
                 CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 customAnimals.add(customAnimal);
                 customPens.put(customPen, customAnimals);
-                customAnimalCounter.setText("Custom: " + pettingAnimalSize);
+                customAnimalCounter.setText("Custom: " + customAnimalSize);
                 System.out.println(Arrays.asList(customPens));
             } else {
                 animalLimitErrorLabel.setText(errorMessageCustom);
