@@ -1,7 +1,7 @@
 package Zoo;
 
 public class Hippo extends Animal {
-    Hippo(String type, double landSpace, double waterSpace, double airSpace, Pen penType) {
-        super(type, landSpace, waterSpace, airSpace ,penType);
+    Hippo(String type, double volume, Pen penType) {
+        super(type, volume, penType);
     }
 }

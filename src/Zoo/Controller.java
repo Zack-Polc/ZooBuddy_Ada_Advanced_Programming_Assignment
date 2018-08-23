@@ -3,6 +3,7 @@ package Zoo;
 import Zoo.Weather.WeatherAPI;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.*;
 public class Controller {
 
     public Button animalSubmitButton;
+    public Button customSubmitButton;
     public Button penSubmitButton;
     public Button initialiseButton;
 
@@ -22,13 +24,8 @@ public class Controller {
 
     public TextField customAnimalTypeTextField;
 
-    public Spinner customAnimalSizeLandSpinner;
-    public Spinner customAnimalSizeWaterSpinner;
-    public Spinner customAnimalSizeAirSpinner;
-    public Spinner penWidthSpinner;
-    public Spinner penLengthSpinner;
-    public Spinner penHeightSpinner;
-
+    public Spinner penVolumeSpinner;
+    public Spinner customAnimalsVolumeSpinner;
 
     public ComboBox animalTypeDropDown;
     public ComboBox penTypeDropDown;
@@ -39,18 +36,14 @@ public class Controller {
     public CheckBox farhadCheckbox;
     public CheckBox hardipCheckbox;
 
+    public Text weatherText;
+
     String penType;
     String errorMessageLand = "Too many of the same animal: Land";
     String errorMessageWater = "Too many of the same animal: Water";
     String errorMessageAir = "Too many of the same animal: Air";
     String errorMessageMixed = "Too many of the same animal: Mixed";
     String errorMessagePetting = "Too many of the same animal: Petting";
-
-    int penArea;
-    int width;
-    int length;
-    int height;
-    int volume;
 
     double numberOfAnimalsCanFit = 10;
 
@@ -66,8 +59,15 @@ public class Controller {
     Keeper farhad = new Keeper("farhad", air, water);
     Keeper hardip = new Keeper("hardip", land, air);
 
-    HashMap pens = new HashMap();
+
+    HashMap landPens = new HashMap();
+    HashMap waterPens = new HashMap();
+    HashMap airPens = new HashMap();
+    HashMap mixedPens = new HashMap();
+    HashMap pettingPens = new HashMap();
     HashMap keepers = new HashMap();
+    // WE WERE STORE OUR FINAL ANIMAL + PEN + KEEPER TOGETHER
+    Map<Keeper, HashMap<Pen, Animal>> keepersAndAnimals = new HashMap<>();
 
     ArrayList<Animal> landAnimals = new ArrayList<>();
     ArrayList<Animal> waterAnimals = new ArrayList<>();
@@ -79,6 +79,7 @@ public class Controller {
     public void initialize() {
         try {
             WeatherAPI weather = WeatherAPI.getWeather();
+            weatherText.setText(weather.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,32 +134,37 @@ public class Controller {
         penType = (String) penTypeDropDown.getValue();
 
         if (penType.equals("land") && alanCheckbox.isSelected()) {
-            keepers.put(land, alan);
-            System.out.println(keepers);
+            keepersAndAnimals.put(alan,landPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("land") && hardipCheckbox.isSelected()) {
-            keepers.put(land, hardip);
+            keepersAndAnimals.put(hardip,landPens);
+            System.out.println(keepersAndAnimals);
         }
 
         if (penType.equals("aquarium") && alexCheckbox.isSelected()) {
-            keepers.put(water, alex);
+            keepersAndAnimals.put(alex,waterPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aquarium") && farhadCheckbox.isSelected()) {
-            keepers.put(water, farhad);
+            keepersAndAnimals.put(farhad,waterPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aviary") && farhadCheckbox.isSelected()) {
-            keepers.put(air, farhad);
-            System.out.println(keepers);
+            keepersAndAnimals.put(farhad,airPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aviary") && hardipCheckbox.isSelected()) {
-            keepers.put(air, hardip);
-            System.out.println(keepers);
+            keepers.put(hardip, airPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("mixed") && alexCheckbox.isSelected()) {
-            keepers.put(mixed, alex);
+            keepers.put(alex, mixedPens);
+            System.out.println(keepersAndAnimals);
         }
         if (penType.equals("petting") && alanCheckbox.isSelected()) {
-            keepers.put(petting, alan);
+            keepers.put(alan, pettingPens);
+            System.out.println(keepersAndAnimals);
         }
     }
 
@@ -182,12 +188,12 @@ public class Controller {
         animalType = animalTypeDropDown.getValue().toString();
 
         if (animalType.equals("Cat")) {
-            Cat cat = new Cat("cat", 4, 0, 0, petting);
+            Cat cat = new Cat("cat", 4, petting);
             if (pettingAnimals.size() <= numberOfAnimalsCanFit) {
                 pettingAnimalCounter.setText("petting: " + pettingAnimalSize);
                 pettingAnimals.add(cat);
-                pens.put(petting, pettingAnimals);
-                System.out.println(Arrays.asList(pens));
+                pettingPens.put(petting, pettingAnimals);
+                System.out.println(Arrays.asList(pettingPens));
             } else if (pettingAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }
@@ -195,22 +201,22 @@ public class Controller {
 
         if (animalType.equals("Dog")) {
             if (pettingAnimals.size() <= numberOfAnimalsCanFit) {
-                Dog dog = new Dog("dog", 3.5, 0, 0, petting);
+                Dog dog = new Dog("dog", 3.5, petting);
                 pettingAnimals.add(dog);
-                pens.put(petting, pettingAnimals);
+                pettingPens.put(petting, pettingAnimals);
                 pettingAnimalCounter.setText("petting: " + pettingAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(pettingPens));
             } else if (pettingAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }
         }
         if (animalType.equals("Dolphin")) {
             if (waterAnimals.size() <= numberOfAnimalsCanFit) {
-                Dolphin dolphin = new Dolphin("dolphin", 0, 40, 0, water);
+                Dolphin dolphin = new Dolphin("dolphin", 40, water);
                 waterAnimals.add(dolphin);
-                pens.put(water, waterAnimals);
+                waterPens.put(water, waterAnimals);
                 waterAnimalCounter.setText("water: " + waterAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(waterPens));
             } else if (waterAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageWater);
             }
@@ -218,11 +224,11 @@ public class Controller {
         }
         if (animalType.equals("Goat")) {
             if (pettingAnimals.size() <= numberOfAnimalsCanFit) {
-                Goat goat = new Goat("goat", 3, 0, 0, petting);
+                Goat goat = new Goat("goat", 3, petting);
                 this.pettingAnimals.add(goat);
-                pens.put(petting, pettingAnimals);
+                pettingPens.put(petting, pettingAnimals);
                 pettingAnimalCounter.setText("petting: " + pettingAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(pettingPens));
             } else if (pettingAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }
@@ -230,11 +236,11 @@ public class Controller {
         }
         if (animalType.equals("Hippo")) {
             if (mixedAnimals.size() <= numberOfAnimalsCanFit) {
-                Hippo hippo = new Hippo("hippo", 0, 0, 20, mixed);
+                Hippo hippo = new Hippo("hippo", 20, mixed);
                 mixedAnimals.add(hippo);
-                pens.put(mixed, mixedAnimals);
+                mixedPens.put(mixed, mixedAnimals);
                 mixedAnimalCounter.setText("mixed: " + mixedAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(mixedPens));
             } else if (mixedAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageMixed);
             }
@@ -242,22 +248,22 @@ public class Controller {
         }
         if (animalType.equals("Owl")) {
             if (airAnimals.size() <= numberOfAnimalsCanFit) {
-                Owl owl = new Owl("owl", 0, 0, 20, air);
+                Owl owl = new Owl("owl", 20, air);
                 airAnimals.add(owl);
-                pens.put(air, airAnimals);
+                airPens.put(air, airAnimals);
                 airAnimalCounter.setText("air: " + airAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(airPens));
             } else if (airAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageAir);
             }
         }
         if (animalType.equals("Penguin")) {
             if (mixedAnimals.size() <= numberOfAnimalsCanFit) {
-                Penguin penguin = new Penguin("penguin", 2, 4, 0, mixed);
+                Penguin penguin = new Penguin("penguin", 20, mixed);
                 mixedAnimals.add(penguin);
-                pens.put(mixed, mixedAnimals);
+                mixedPens.put(mixed, mixedAnimals);
                 mixedAnimalCounter.setText("mixed: " + mixedAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(mixedPens));
             } else if (mixedAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageMixed);
             }
@@ -265,11 +271,11 @@ public class Controller {
         }
         if (animalType.equals("Sloth")) {
             if (landAnimals.size() <= numberOfAnimalsCanFit) {
-                Sloth sloth = new Sloth("sloth", 3, 0, 0, land);
+                Sloth sloth = new Sloth("sloth", 3, land);
                 landAnimals.add(sloth);
-                pens.put(land, landAnimals);
+                landPens.put(land, landAnimals);
                 landAnimalCounter.setText("land: " + landAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(landPens));
             } else if (landAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageLand);
             }
@@ -279,9 +285,7 @@ public class Controller {
 
     public void handleCustomSubmitButton() {
         String animalType;
-        int landSize;
-        int waterSize;
-        int airSize;
+        int volume;
         Pen penType;
         String selectedPenType;
 
@@ -299,19 +303,17 @@ public class Controller {
         mixedAnimalCounter.setText("mixed: " + mixedAnimals.size());
 
         animalType = customAnimalTypeTextField.getText();
-        landSize = (int) customAnimalSizeLandSpinner.getValue();
-        waterSize = (int) customAnimalSizeWaterSpinner.getValue();
-        airSize = (int) customAnimalSizeAirSpinner.getValue();
+        volume = (int) customAnimalsVolumeSpinner.getValue();
         selectedPenType = customPenTypeDropDown.getValue().toString();
 
         if (selectedPenType.equals("land")) {
             if (landAnimals.size() <= numberOfAnimalsCanFit) {
                 penType = land;
-                CustomAnimal customAnimal = new CustomAnimal(animalType, landSize, waterSize, airSize, penType);
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 landAnimals.add(customAnimal);
-                pens.put(land, landAnimals);
+                landPens.put(land, landAnimals);
                 landAnimalCounter.setText("land: " + landAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(landPens));
             } else {
                 animalLimitErrorLabel.setText(errorMessageLand);
             }
@@ -319,11 +321,11 @@ public class Controller {
         if (selectedPenType.equals("aquarium")) {
             if (waterAnimals.size() <= numberOfAnimalsCanFit) {
                 penType = water;
-                CustomAnimal customAnimal = new CustomAnimal(animalType, landSize, waterSize, airSize, penType);
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 waterAnimals.add(customAnimal);
-                pens.put(water, waterAnimals);
+                waterPens.put(water, waterAnimals);
                 waterAnimalCounter.setText("water: " + waterAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(waterPens));
             } else {
                 animalLimitErrorLabel.setText(errorMessageWater);
             }
@@ -331,11 +333,11 @@ public class Controller {
         if (selectedPenType.equals("aviary")) {
             if (airAnimals.size() <= numberOfAnimalsCanFit) {
                 penType = air;
-                CustomAnimal customAnimal = new CustomAnimal(animalType, landSize, waterSize, airSize, penType);
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 airAnimals.add(customAnimal);
-                pens.put(air, airAnimals);
+                airPens.put(air, airAnimals);
                 airAnimalCounter.setText("air: " + airAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(airPens));
             } else {
                 animalLimitErrorLabel.setText(errorMessageAir);
             }
@@ -343,11 +345,11 @@ public class Controller {
         if (mixedAnimals.size() <= numberOfAnimalsCanFit) {
             if (selectedPenType.equals("mixed")) {
                 penType = mixed;
-                CustomAnimal customAnimal = new CustomAnimal(animalType, landSize, waterSize, airSize, penType);
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 mixedAnimals.add(customAnimal);
-                pens.put(mixed, mixedAnimals);
+                mixedPens.put(mixed, mixedAnimals);
                 mixedAnimalCounter.setText("mixed: " + mixedAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(mixedPens));
             }
         } else {
             animalLimitErrorLabel.setText(errorMessageMixed);
@@ -356,11 +358,11 @@ public class Controller {
         if (selectedPenType.equals("petting")) {
             if (pettingAnimals.size() <= numberOfAnimalsCanFit) {
                 penType = petting;
-                CustomAnimal customAnimal = new CustomAnimal(animalType, landSize, waterSize, airSize, penType);
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
                 pettingAnimals.add(customAnimal);
-                pens.put(petting, pettingAnimals);
+                pettingPens.put(petting, pettingAnimals);
                 pettingAnimalCounter.setText("petting: " + pettingAnimalSize);
-                System.out.println(Arrays.asList(pens));
+                System.out.println(Arrays.asList(pettingPens));
             } else {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }

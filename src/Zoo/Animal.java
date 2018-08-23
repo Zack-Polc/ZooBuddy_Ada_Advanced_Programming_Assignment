@@ -1,19 +1,13 @@
 package Zoo;
 
-import Zoo.Pen;
-
 public abstract class Animal {
     String type;
-    double landSpace;
-    double waterSpace;
-    double airSpace;
+    double volume;
     Pen penType;
 
-    Animal(String type, double landSpace, double waterSpace, double airSpace, Pen penType) {
+    Animal(String type, double volume, Pen penType) {
         this.type = type;
-        this.landSpace = landSpace;
-        this.waterSpace = waterSpace;
-        this.airSpace = airSpace;
+        this.volume = volume;
         this.penType = penType;
     }
 
@@ -21,13 +15,10 @@ public abstract class Animal {
         return type;
     }
 
-    public String getSpace() {
-        String landSpacePrint = String.valueOf(landSpace);
-        String WaterSpacePrint = String.valueOf(waterSpace);
-        String airSpacePrint = String.valueOf(airSpace);
-        String allSpacePrint = landSpacePrint + "," + waterSpace + "," + airSpacePrint;
-        return allSpacePrint;
+    public double getVolume() {
+        return volume;
     }
+
 
     public Pen getPenType() {
         return penType;
