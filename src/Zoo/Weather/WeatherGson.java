@@ -2,7 +2,7 @@ package Zoo.Weather;
 
 import java.util.List;
 
-public class WeatherObject {
+public class WeatherGson {
         //private Coord coord;
         private List<Weather> weather;
         private String base;
@@ -18,7 +18,7 @@ public class WeatherObject {
 
         public void returnWeather(){
             System.out.println(id);
-            System.out.println(weather.get(0).main);
+            System.out.println(getLatestWeather());
         }
 
         public double getLatestWeather() {
@@ -28,7 +28,6 @@ public class WeatherObject {
 
     class Weather {
         public int id;
-        public String main;
         private String description;
         private String icon;
     }

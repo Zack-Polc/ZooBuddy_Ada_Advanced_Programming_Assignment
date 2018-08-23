@@ -1,6 +1,6 @@
 package Zoo;
 
-import Zoo.Weather.WeatherAPI;
+import Zoo.Weather.WeatherApi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +21,6 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         launch(args);
-        WeatherAPI.getWeather();
+        WeatherApi.getWeather();
     }
 }

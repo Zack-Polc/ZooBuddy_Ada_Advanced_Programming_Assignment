@@ -21,9 +21,24 @@
          <Insets bottom="30.0" />
       </VBox.margin>
    </Text>
-   <Text fx:id="weatherText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   <Label fx:id="weatherLabel" text="Label" />
    <TabPane prefHeight="250.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
      <tabs>
+         <Tab text="Pen">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                     <Label layoutX="14.0" layoutY="14.0" text="Choose a pen type" />
+                     <ComboBox fx:id="customPenTypeDropDown" layoutX="14.0" layoutY="40.0" prefWidth="150.0" />
+                     <Button fx:id="customPenSubmitButton" layoutX="271.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleCustomPenSubmitButton" text="Submit" />
+                     <Spinner fx:id="customPenVolumeSpinner" layoutX="399.0" layoutY="40.0" max="100" min="0" />
+                     <Label layoutX="398.0" layoutY="14.0" text="Choose the pen's volume" />
+                     <Label layoutX="200.0" layoutY="14.0" text="Choose the pen's temperature" />
+                     <Spinner fx:id="customPenTempSpinner" layoutX="208.0" layoutY="40.0" max="100" min="0" />
+                  </children>
+               </AnchorPane>
+           </content>
+         </Tab>
        <Tab text="Animal">
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -32,7 +47,7 @@
                      <ComboBox fx:id="animalTypeDropDown" layoutX="10.0" layoutY="34.0" onAction="#handleErrorMessageText" prefWidth="150.0" />
                      <Label layoutX="204.0" layoutY="82.0" text="Input Animal Volume" />
                      <Label layoutX="436.0" layoutY="22.0" text="Input Pen Type" />
-                     <ComboBox fx:id="customPenTypeDropDown" layoutX="436.0" layoutY="46.0" prefWidth="150.0" />
+                     <ComboBox fx:id="customAnimalPenTypeDropDown" layoutX="436.0" layoutY="46.0" prefWidth="150.0" />
                      <Button fx:id="animalSubmitButton" layoutX="99.0" layoutY="69.0" onAction="#handleAnimalSubmitButton" prefHeight="15.0" prefWidth="61.0" text="Submit" />
                      <Label fx:id="landAnimalCounter" layoutX="14.0" layoutY="65.0" text="Land:" />
                      <Label fx:id="waterAnimalCounter" layoutX="13.0" layoutY="82.0" text="Water:" />
@@ -46,34 +61,34 @@
                      <TextField fx:id="customAnimalTypeTextField" layoutX="202.0" layoutY="47.0" />
                      <Spinner fx:id="customAnimalsVolumeSpinner" layoutX="214.0" layoutY="106.0" max="100" min="0" prefHeight="17.0" prefWidth="61.0" />
                      <Label fx:id="animalLimitErrorLabel" layoutX="283.0" layoutY="183.0" text="-" />
+                     <Label fx:id="customAnimalCounter" layoutX="12.0" layoutY="158.0" text="Custom:" />
                   </children>
                </AnchorPane>
          </content>
        </Tab>
-       <Tab text="Pens">
+       <Tab text="Keeper">
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
 
-                      <Label layoutX="14.0" layoutY="14.0" text="Pen type" />
-                     <ComboBox fx:id="penTypeDropDown" layoutX="14.0" layoutY="35.0" onAction="#handleErrorMessageText" prefWidth="150.0" />
+                      <Label layoutX="22.0" layoutY="16.0" text="Pen type" />
+                     <ComboBox fx:id="keeperPenTypeDropDown" layoutX="22.0" layoutY="37.0" onAction="#handleErrorMessageText" prefWidth="150.0" />
 
-                     <Label layoutX="178.0" layoutY="16.0" text="Volume" />
-
-                     <Label layoutX="426.0" layoutY="14.0" text="Pen staff" />
-                     <Button fx:id="penSubmitButton" layoutX="270.0" layoutY="100.0" onAction="#handlePenSubmitButton" text="Submit" />
-                     <CheckBox fx:id="hardipCheckbox" layoutX="398.0" layoutY="39.0" mnemonicParsing="false" text="Hardip" />
-                     <CheckBox fx:id="alexCheckbox" layoutX="398.0" layoutY="73.0" mnemonicParsing="false" text="Alex" />
-                     <CheckBox fx:id="farhadCheckbox" layoutX="478.0" layoutY="39.0" mnemonicParsing="false" text="Farhad" />
-                     <CheckBox fx:id="alanCheckbox" layoutX="478.0" layoutY="73.0" mnemonicParsing="false" text="Alan" />
-                     <Spinner fx:id="penVolumeSpinner" layoutX="178.0" layoutY="37.0" max="1000" min="0" prefHeight="26.0" prefWidth="63.0" />
+                     <Label layoutX="256.0" layoutY="12.0" text="Pen staff" />
+                     <Button fx:id="keeperSubmitButton" layoutX="270.0" layoutY="158.0" onAction="#handleKeeperSubmitButton" text="Submit" />
+                     <CheckBox fx:id="hardipCheckbox" layoutX="228.0" layoutY="37.0" mnemonicParsing="false" text="Hardip" />
+                     <CheckBox fx:id="alexCheckbox" layoutX="228.0" layoutY="71.0" mnemonicParsing="false" text="Alex" />
+                     <CheckBox fx:id="farhadCheckbox" layoutX="308.0" layoutY="37.0" mnemonicParsing="false" text="Farhad" />
+                     <CheckBox fx:id="alanCheckbox" layoutX="308.0" layoutY="71.0" mnemonicParsing="false" text="Alan" />
+                     <Label layoutX="33.0" layoutY="89.0" text="Alan - Land / Petting" />
+                     <Label layoutX="33.0" layoutY="105.0" text="Alex - Aquarium/Mixed" />
+                     <Label layoutX="33.0" layoutY="121.0" text="Farhad - Aquarium/Aviary" />
+                     <Label layoutX="33.0" layoutY="137.0" text="Hardip - Land/Aviary" />
                   </children></AnchorPane>
          </content>
        </Tab>
      </tabs>
    </TabPane>
-   <Button fx:id="initialiseButton" alignment="CENTER" mnemonicParsing="false" onAction="#initialiseZoo" text="Click here to initialise zoo" textFill="#f50a0a" underline="true" />
-
    <stylesheets>
       <URL value="@demo.css" />
    </stylesheets>

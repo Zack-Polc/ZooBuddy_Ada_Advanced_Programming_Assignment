@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class WeatherAPI {
+public class WeatherApi {
 
-    public static WeatherAPI getWeather() throws IOException {
+    public static WeatherGson getWeather() throws IOException {
         String input;
         StringBuffer JSONResponse = new StringBuffer();
 
@@ -27,7 +27,7 @@ public class WeatherAPI {
         // Creating New GSON
         Gson GSON = new Gson();
         String JSON = String.valueOf(JSONResponse);
-        WeatherAPI weather = GSON.fromJson(JSON, WeatherAPI.class);
+        WeatherGson weather = GSON.fromJson(JSON, WeatherGson.class);
         return weather;
     }
 }

@@ -8,28 +8,29 @@
 package Zoo;
 
 public class Pen {
-    double numberOfAnimalsCanFit;
     double volume;
     double temperature;
     String type;
 
-    public Pen(String type,double numberOfAnimalsCanFit, double temperature, double volume)
+    public Pen(String type, double temperature, double volume)
     {
         this.type = type;
         this.temperature = temperature;
         this.volume = volume;
-        this.numberOfAnimalsCanFit = numberOfAnimalsCanFit;
     }
 
 
-    public double getNumberOfAnimalsCanFit() {
-        return numberOfAnimalsCanFit;
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getType() {
         return type;

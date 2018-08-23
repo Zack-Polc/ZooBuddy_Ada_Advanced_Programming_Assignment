@@ -1,9 +1,10 @@
 package Zoo;
 
-import Zoo.Weather.WeatherAPI;
+import Zoo.Weather.WeatherApi;
+import Zoo.Weather.WeatherGson;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,23 +13,27 @@ public class Controller {
 
     public Button animalSubmitButton;
     public Button customSubmitButton;
-    public Button penSubmitButton;
-    public Button initialiseButton;
+    public Button keeperSubmitButton;
+    public Button customPenSubmitButton;
 
     public Label landAnimalCounter;
     public Label waterAnimalCounter;
     public Label airAnimalCounter;
     public Label pettingAnimalCounter;
     public Label mixedAnimalCounter;
+    public Label customAnimalCounter;
     public Label animalLimitErrorLabel;
+    public Label weatherLabel;
 
     public TextField customAnimalTypeTextField;
 
-    public Spinner penVolumeSpinner;
     public Spinner customAnimalsVolumeSpinner;
+    public Spinner customPenVolumeSpinner;
+    public Spinner customPenTempSpinner;
 
     public ComboBox animalTypeDropDown;
-    public ComboBox penTypeDropDown;
+    public ComboBox customAnimalPenTypeDropDown;
+    public ComboBox keeperPenTypeDropDown;
     public ComboBox customPenTypeDropDown;
 
     public CheckBox alanCheckbox;
@@ -36,23 +41,30 @@ public class Controller {
     public CheckBox farhadCheckbox;
     public CheckBox hardipCheckbox;
 
-    public Text weatherText;
-
+    String customPenTypeInsideDropDown = "custom";
     String penType;
+    String customPenType;
     String errorMessageLand = "Too many of the same animal: Land";
     String errorMessageWater = "Too many of the same animal: Water";
     String errorMessageAir = "Too many of the same animal: Air";
     String errorMessageMixed = "Too many of the same animal: Mixed";
     String errorMessagePetting = "Too many of the same animal: Petting";
+    String errorMessageCustom = "Too many of the same animal: Custom";
+
 
     double numberOfAnimalsCanFit = 10;
 
+    int customPenVolume;
+    int customPenTemp;
+
     // height of 1 is to ignore height axis
-    Pen land = new Pen("land", numberOfAnimalsCanFit, 1, 25);
-    Pen water = new Pen("water", numberOfAnimalsCanFit, 1, 25);
-    Pen air = new Pen("air", numberOfAnimalsCanFit, 1, 25);
-    Pen mixed = new Pen("mixed", numberOfAnimalsCanFit, 1, 25);
-    Pen petting = new Pen("petting", numberOfAnimalsCanFit, 1, 25);
+    Pen land = new Pen("land", 1, 25);
+    Pen water = new Pen("water", 1, 25);
+    Pen air = new Pen("air", 1, 25);
+    Pen mixed = new Pen("mixed", 1, 25);
+    Pen petting = new Pen("petting", 1, 25);
+    Pen customPen = new Pen(customPenType, customPenTemp, customPenVolume);
+
 
     Keeper alan = new Keeper("alan", land, petting);
     Keeper alex = new Keeper("alex", water, mixed);
@@ -65,6 +77,7 @@ public class Controller {
     HashMap airPens = new HashMap();
     HashMap mixedPens = new HashMap();
     HashMap pettingPens = new HashMap();
+    HashMap customPens = new HashMap();
     HashMap keepers = new HashMap();
     // WE WERE STORE OUR FINAL ANIMAL + PEN + KEEPER TOGETHER
     Map<Keeper, HashMap<Pen, Animal>> keepersAndAnimals = new HashMap<>();
@@ -74,27 +87,18 @@ public class Controller {
     ArrayList<Animal> airAnimals = new ArrayList<>();
     ArrayList<Animal> pettingAnimals = new ArrayList<>();
     ArrayList<Animal> mixedAnimals = new ArrayList<>();
+    ArrayList<Animal> customAnimals = new ArrayList<>();
 
     @FXML
     public void initialize() {
         try {
-            WeatherAPI weather = WeatherAPI.getWeather();
-            weatherText.setText(weather.toString());
+            WeatherGson weather = WeatherApi.getWeather();
+            String todaysWeather = "Today's weather is: ";
+            weatherLabel.setFont(Font.font(30));
+            weatherLabel.setText(todaysWeather + weather.getLatestWeather() + "°C");
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void initialiseZoo() throws InterruptedException {
-
-        try {
-            animalTypeDropDown.getItems().clear();
-            penTypeDropDown.getItems().clear();
-        } catch (Exception e) {
-            initialiseButton.setText("Could not initialise Zoo: something went wrong :(");
-        } finally {
-            // hiding the button to stop re-population of lists
-            initialiseButton.setTranslateX(9000);
         }
 
         animalTypeDropDown.getItems().addAll(
@@ -108,30 +112,57 @@ public class Controller {
                 "Sloth"
         );
 
-
-        customPenTypeDropDown.getItems().addAll(
+        customAnimalPenTypeDropDown.getItems().addAll(
                 "land",
                 "aquarium",
                 "aviary",
                 "mixed",
-                "petting"
+                "petting",
+                customPenTypeInsideDropDown
         );
 
-        penTypeDropDown.getItems().addAll(
+        keeperPenTypeDropDown.getItems().addAll(
                 "land",
                 "aquarium",
                 "aviary",
                 "mixed",
-                "petting"
+                "petting",
+                customPenTypeInsideDropDown
+        );
+
+        customPenTypeDropDown.getItems().addAll(
+                "Arctic",
+                "Sand Dune",
+                "Tropical",
+                "Forest",
+                "Marshlands",
+                "Jungle"
         );
     }
 
-    /////////////////
-    //// PEN TAB ////
+    ///////////////////////
+    //// Pen STUFF ////
 
-    public void handlePenSubmitButton() {
+    public void handleCustomPenSubmitButton() {
 
-        penType = (String) penTypeDropDown.getValue();
+        customPenType = customPenTypeDropDown.getValue().toString();
+        customPenTemp = (int) customPenTempSpinner.getValue();
+        customPenVolume = (int) customPenVolumeSpinner.getValue();
+
+        customPen.setType(customPenType);
+        customPen.setTemperature(customPenTemp);
+        customPen.setVolume(customPenVolume);
+
+        customPenTypeInsideDropDown = customPenType;
+        System.out.println(customPen);
+    }
+
+    ///////////////////////
+    //// Keeper STUFF ////
+
+    public void handleKeeperSubmitButton() {
+
+        penType = (String) keeperPenTypeDropDown.getValue();
 
         if (penType.equals("land") && alanCheckbox.isSelected()) {
             keepersAndAnimals.put(alan,landPens);
@@ -304,7 +335,7 @@ public class Controller {
 
         animalType = customAnimalTypeTextField.getText();
         volume = (int) customAnimalsVolumeSpinner.getValue();
-        selectedPenType = customPenTypeDropDown.getValue().toString();
+        selectedPenType = customAnimalPenTypeDropDown.getValue().toString();
 
         if (selectedPenType.equals("land")) {
             if (landAnimals.size() <= numberOfAnimalsCanFit) {
@@ -367,5 +398,20 @@ public class Controller {
                 animalLimitErrorLabel.setText(errorMessagePetting);
             }
         }
+
+        if (selectedPenType.equals("custom")) {
+            if (customAnimals.size() <= numberOfAnimalsCanFit) {
+                penType = customPen;
+                CustomAnimal customAnimal = new CustomAnimal(animalType, volume, penType);
+                customAnimals.add(customAnimal);
+                customPens.put(customPen, customAnimals);
+                customAnimalCounter.setText("Custom: " + pettingAnimalSize);
+                System.out.println(Arrays.asList(customPens));
+            } else {
+                animalLimitErrorLabel.setText(errorMessageCustom);
+            }
+        }
     }
+
+
 }

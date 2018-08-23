@@ -19,7 +19,6 @@ public abstract class Animal {
         return volume;
     }
 
-
     public Pen getPenType() {
         return penType;
     }
