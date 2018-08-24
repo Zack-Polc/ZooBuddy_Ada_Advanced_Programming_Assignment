@@ -69,31 +69,25 @@ unfortunately due to a error in my initial designs, i had realised the the flow 
 
 ## Reflection
 
-i had originally started this projcet with little no idea of how it would be approached, this in hindsight was a big mistake as it made the overall flow of my project very messy. I would lose track of what did/didnt work, poor and lazy code was written which caused further issues down the line. I found it hard very hard to think of the backend logic and how it would interact with the GUI without creating the GUI first. This meant i had to jump into Scenebuilder and create my very first GUI.
-
-**Creating the GUI**
-Creating the GUI was pretty fun to be fair, i had a lot of ideas and at times lost track of where i was becuase i didnt keep note of new ideas that came to mind (i will note ideas down in the future). The original scenebuilder built into IntelliJ was total garbage, which meant the editor would crash every few minutes and the UI was cramped and awkward to navigate. To counter this i had to download a 3rd party appliation - * [Scene Builder](https://gluonhq.com/products/scene-builder/) .
+i  had originally started this project with little no idea of how it would be approached, this in hindsight was a big mistake as it made the overall flow of my project very messy. I would lose track of what did/didn't work, poor and lazy code was written which caused further issues down the line. I found it hard very hard to think of the backend logic and how it would interact with the GUI without creating the GUI first. This meant i had to jump into Scene Builder and create my very first GUI.
+Creating the GUI Creating the GUI was pretty fun to be fair, i had a lot of ideas and at times lost track of where i was because i didn't keep note of new ideas that came to mind (i will note ideas down in the future). The original scene builder built into IntelliJ was total garbage, which meant the editor would crash every few minutes and the UI was cramped and awkward to navigate. To counter this i had to download a 3rd party application - * Scene Builder .
 
 This app made it a breeze to create a UI and most importantly it did not crash!
-
-**The backend logic and learning about controller and UI interactions**
-When starting with JavaFX i quickly learnt  that the you didnt really want logical code to be ruining in the main class. (i made that mistake early on so that was lucky!) I learnt about the almighty Controller.java class.
+The backend logic and learning about controller and UI interactions When starting with JavaFX i quickly learnt that the you didn't really want logical code to be ruining in the main class. (i made that mistake early on so that was lucky!) I learnt about the almighty Controller.java class.
 
 The controller class would be the bridge between the logic and functionality behind elements on the GUI. In tandem with the controller, javaFX would give you the ability to wire up code with GUI elements such as buttons by giving them fxID's. These ID's is what allowed the code to understand which element it was giving functionaly to.
+Future suggestions and ideas If there is anything i can take away from this project, it is that planning how user journeys will go is the very important! Unfortunately i did not do this when starting my project, but what is more important is that i have finally learnt the consequences of not doing so.
 
-**Future suggestions and ideas**
-If there is anything i can take away from this project, it is that planning how user journeys will go is the very important!
-Unfortunately i did not do this when starting my proect, but what is more important is that i have finally learnt the concequences of not doing so.
-
-Another few thing that i struggled on and aim to improve on is giving smart names to variables and not repeating code that is already written (i think thats a hidden rule or something). I found myself repeating code multiple times this project due to they way i was getting user input through the GUI. These two things became a huge problem the larger my codebase grew as it became extremely hard to read and navigate through without getting confused and potentially writing code in the wrong places (i did that a few times).
+Another few thing that i struggled on and aim to improve on is giving smart names to variables and not repeating code that is already written (i think that's a hidden rule or something). I found myself repeating code multiple times this project due to they way i was getting user input through the GUI. These two things became a huge problem the larger my codebase grew as it became extremely hard to read and navigate through without getting confused and potentially writing code in the wrong places (i did that a few times).
 
 For next time:
-- I wouldnt use Java
+- I wouldn't use Java
 - Find a framework the supports clean UI building
-- Possibly incorporate more libraries to do the heavy lifting for me - dont re-invent the wheel sort of thing
+- Possibly incorporate more libraries to do the heavy lifting for me - don't reinvent the wheel sort of thing
 - perhaps think of doing a web app instead
 - better planning with a UML
 - accurate noting of ideas along the way to avoid losing track of thoughts
+
 
 ## Built With
 
