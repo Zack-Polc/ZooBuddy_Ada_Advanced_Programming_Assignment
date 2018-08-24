@@ -13,6 +13,7 @@ What things you need to install the software
 ```
 Java
 Gson either through maven or gradle
+For the weather API to function you must have an active internet connection
 ```
 
 ### Installing
