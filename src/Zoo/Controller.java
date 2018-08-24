@@ -108,7 +108,7 @@ public class Controller {
             String todaysWeather = "Today's weather is: ";
             weatherLabel.setFont(Font.font(30));
             weatherLabel.setText(ZonedDateTime.now().getHour() + ":"
-                    + ZonedDateTime.now().getMinute() + "-"
+                    + ZonedDateTime.now().getMinute() + " - "
                     + todaysWeather + weather.getLatestWeather() + "°C");
 
         } catch (Exception e) {
@@ -330,7 +330,6 @@ public class Controller {
             } else if (landAnimals.size() > numberOfAnimalsCanFit) {
                 animalLimitErrorLabel.setText(errorMessageLand);
             }
-
         }
     }
 
@@ -433,13 +432,14 @@ public class Controller {
             }
         }
     }
-
     public String landAnimalNames() {
         String landNames = "";
+        int landNumber = 0;
         for (int i = 0; i < landAnimals.size(); i++) {
             landNames = landAnimals.get(i).getType();
+            landNumber = landAnimals.size();
         }
-        return landNames;
+        return landNumber + "" + landNames;
     }
 
     public String waterAnimalNames() {
@@ -496,6 +496,7 @@ public class Controller {
                             + "water: " + waterAnimalNames() + "\n"
                             + "land: " + landAnimalNames() + "\n"
                             + "air: " + airAnimalNames() + "\n"
+                            + "petting: " + pettingAnimalNames() + "\n"
             );
         }
 
