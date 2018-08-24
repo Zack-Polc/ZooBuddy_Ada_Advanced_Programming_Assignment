@@ -6,7 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
+import java.io.*;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 public class Controller {
@@ -15,6 +16,8 @@ public class Controller {
     public Button customSubmitButton;
     public Button keeperSubmitButton;
     public Button customPenSubmitButton;
+    public Button saveButton;
+    public Button refreshButton;
 
     public Label landAnimalCounter;
     public Label waterAnimalCounter;
@@ -88,15 +91,27 @@ public class Controller {
     ArrayList<Animal> mixedAnimals = new ArrayList<>();
     ArrayList<Animal> customAnimals = new ArrayList<>();
 
+    WeatherGson weather;
+
+    {
+        try {
+            weather = WeatherApi.getWeather();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     public void initialize() {
         try {
-            WeatherGson weather = WeatherApi.getWeather();
             String todaysWeather = "Today's weather is: ";
             weatherLabel.setFont(Font.font(30));
-            weatherLabel.setText(todaysWeather + weather.getLatestWeather() + "°C");
+            weatherLabel.setText(ZonedDateTime.now().getHour() + ":"
+                    + ZonedDateTime.now().getMinute() + "-"
+                    + todaysWeather + weather.getLatestWeather() + "°C");
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -166,24 +181,24 @@ public class Controller {
         penType = (String) keeperPenTypeDropDown.getValue();
 
         if (penType.equals("land") && alanCheckbox.isSelected()) {
-            keepersAndAnimals.put(alan,landPens);
+            keepersAndAnimals.put(alan, landPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("land") && hardipCheckbox.isSelected()) {
-            keepersAndAnimals.put(hardip,landPens);
+            keepersAndAnimals.put(hardip, landPens);
             System.out.println(keepersAndAnimals);
         }
 
         if (penType.equals("aquarium") && alexCheckbox.isSelected()) {
-            keepersAndAnimals.put(alex,waterPens);
+            keepersAndAnimals.put(alex, waterPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aquarium") && farhadCheckbox.isSelected()) {
-            keepersAndAnimals.put(farhad,waterPens);
+            keepersAndAnimals.put(farhad, waterPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aviary") && farhadCheckbox.isSelected()) {
-            keepersAndAnimals.put(farhad,airPens);
+            keepersAndAnimals.put(farhad, airPens);
             System.out.println(keepersAndAnimals);
         }
         if (penType.equals("aviary") && hardipCheckbox.isSelected()) {
@@ -419,5 +434,74 @@ public class Controller {
         }
     }
 
+    public String landAnimalNames() {
+        String landNames = "";
+        for (int i = 0; i < landAnimals.size(); i++) {
+            landNames = landAnimals.get(i).getType();
+        }
+        return landNames;
+    }
 
+    public String waterAnimalNames() {
+        String waterNames = "";
+        for (int i = 0; i < waterAnimals.size(); i++) {
+            waterNames = waterAnimals.get(i).getType();
+        }
+        return waterNames;
+    }
+
+    public String airAnimalNames() {
+        String airNames = "";
+        for (int i = 0; i < airAnimals.size(); i++) {
+            airNames = airAnimals.get(i).getType();
+        }
+        return airNames;
+    }
+
+    public String mixedAnimalNames() {
+        String mixedNames = "";
+        for (int i = 0; i < mixedAnimals.size(); i++) {
+            mixedNames = mixedAnimals.get(i).getType();
+        }
+        return mixedNames;
+    }
+
+    public String pettingAnimalNames() {
+        String pettingNames = "";
+        for (int i = 0; i < pettingAnimals.size(); i++) {
+            pettingNames = pettingAnimals.get(i).getType();
+        }
+        return pettingNames;
+    }
+
+    public String customAnimalNames() {
+        String customNames = "";
+        for (int i = 0; i < customAnimals.size(); i++) {
+            customNames = customAnimals.get(i).getType();
+        }
+        return customNames;
+    }
+
+    public void save() throws FileNotFoundException {
+        File fileTwo = new File("output.txt");
+        FileOutputStream fos = new FileOutputStream(fileTwo);
+        PrintWriter pw = new PrintWriter(fos);
+
+        for (Map.Entry<Keeper, HashMap<Pen, Animal>> map : keepersAndAnimals.entrySet()) {
+            pw.println(
+                    map.getKey().name + " is the keeper of: " + "\n" +
+                            " petting: " + pettingAnimals + "\n"
+                            + "custom: " + customAnimalNames() + "\n"
+                            + "mixed: " + mixedAnimalNames() + "\n"
+                            + "water: " + waterAnimalNames() + "\n"
+                            + "land: " + landAnimalNames() + "\n"
+                            + "air: " + airAnimalNames() + "\n"
+            );
+        }
+
+        System.out.println("-------- file saved > check project folder ---------");
+        pw.flush();
+        pw.close();
+
+    }
 }

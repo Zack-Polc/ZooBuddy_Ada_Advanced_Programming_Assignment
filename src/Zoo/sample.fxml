@@ -61,12 +61,8 @@
                      <Button fx:id="customPenSubmitButton" layoutX="271.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleCustomPenSubmitButton" text="Submit" />
                      <Spinner fx:id="customPenVolumeSpinner" layoutX="399.0" layoutY="40.0" max="100" min="0" />
                      <Label layoutX="398.0" layoutY="14.0" text="Volume (m3)" />
-                     <Label layoutX="200.0" layoutY="14.0" text="Temperature (Celcius)">
-                        <font>
-                           <Font size="37.0" />
-                        </font>
-                     </Label>
-                     <Spinner fx:id="customPenTempSpinner" layoutX="208.0" layoutY="40.0" max="100" min="0" />
+                     <Label layoutX="200.0" layoutY="14.0" text="Temperature (Celcius)" />
+                     <Spinner fx:id="customPenTempSpinner" layoutX="208.0" layoutY="40.0" max="100" min="-100" />
                   </children>
                </AnchorPane>
            </content>
@@ -121,6 +117,7 @@
        </Tab>
      </tabs>
    </TabPane>
+   <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Save to file" />
    <stylesheets>
       <URL value="@demo.css" />
    </stylesheets>
