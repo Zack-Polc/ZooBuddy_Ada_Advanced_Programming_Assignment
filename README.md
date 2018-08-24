@@ -78,7 +78,7 @@ i had originally started this projcet with little no idea of how it would be app
 **Creating the GUI**
 Creating the GUI was pretty fun to be fair, i had a lot of ideas and at times lost track of where i was becuase i didnt keep note of new ideas that came to mind (i will note ideas down in the future). The original scenebuilder built into IntelliJ was total garbage, which meant the editor would crash every few minutes and the UI was cramped and awkward to navigate. To counter this i had to download a 3rd party appliation - * [Scene Builder](https://gluonhq.com/products/scene-builder/) .
 
-This app made it a breeze to create a UI and most importantly did not crash!
+This app made it a breeze to create a UI and most importantly it did not crash!
 
 **The backend logic and learning about controller and UI interactions**
 When starting with JavaFX i learnt quickly that the you didnt really want logical code to be ruining in the main class. (i made that mistake early on so that was lucky!) I learnt about the almighty Controller.java class.
