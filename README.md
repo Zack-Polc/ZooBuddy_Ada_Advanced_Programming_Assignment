@@ -87,6 +87,14 @@ Unfortunately i did not do this when starting my proect, but what is more import
 
 Another few thing that i struggled on and aim to improve on is giving smart names to variables and not repeating code that is already written (i think thats a hidden rule or something). I found myself repeating code multiple times this project due to they way i was getting user input through the GUI. These two things became a huge problem the larger my codebase grew as it became extremely hard to read and navigate through without getting confused and potentially writing code in the wrong places (i did that a few times).
 
+For next time:
+- I wouldnt use Java
+- Find a framework the supports clean UI building
+- Possibly incorporate more libraries to do the heavy lifting for me - dont re-invent the wheel sort of thing
+- perhaps think of doing a web app instead
+- better planning with a UML
+- accurate noting of ideas along the way to avoid losing track of thoughts
+
 ## Built With
 
 * [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
