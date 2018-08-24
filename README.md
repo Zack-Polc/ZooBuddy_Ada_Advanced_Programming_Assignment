@@ -26,11 +26,10 @@ Either clone into you local environment or download master file and import into 
 
 ## Running the tests
 
-TBA
-
-### Break down into end to end tests
-
-TBA
+Creating pens
+```
+✓
+```
 
 ## Built With
 
