@@ -77,9 +77,9 @@ Creating the GUI was pretty fun to be fair, i had a lot of ideas and at times lo
 This app made it a breeze to create a UI and most importantly it did not crash!
 
 **The backend logic and learning about controller and UI interactions**
-When starting with JavaFX i learnt quickly that the you didnt really want logical code to be ruining in the main class. (i made that mistake early on so that was lucky!) I learnt about the almighty Controller.java class.
+When starting with JavaFX i quickly learnt  that the you didnt really want logical code to be ruining in the main class. (i made that mistake early on so that was lucky!) I learnt about the almighty Controller.java class.
 
-The controller class would the bridge between the logic and functionality behind elements on the GUI. In tandem with the controller, javaFX would give you the ability to wire up code with GUI elements such as buttons by giving them fxID's. These ID's is what allowed me to declare and speicify what elements did what.
+The controller class would be the bridge between the logic and functionality behind elements on the GUI. In tandem with the controller, javaFX would give you the ability to wire up code with GUI elements such as buttons by giving them fxID's. These ID's is what allowed me to declare and speicify what elements did what.
 
 **Future suggestions and ideas**
 If there is anything i can take away from this project, it is that planning how user journeys will go is the very important!
