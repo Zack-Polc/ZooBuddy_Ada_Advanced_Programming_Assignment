@@ -2,10 +2,6 @@
 
 This is the repo of Zack's submission for their assignment - Advanced 
 
-
-
-ming. 
-
 <blockquote class="imgur-embed-pub" lang="en" data-id="EyF8lR1"><a href="//imgur.com/EyF8lR1">View Program</a></blockquote>
 
 ## Getting Started
