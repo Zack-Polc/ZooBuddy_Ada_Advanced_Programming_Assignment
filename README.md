@@ -85,7 +85,7 @@ The controller class would be the bridge between the logic and functionality beh
 If there is anything i can take away from this project, it is that planning how user journeys will go is the very important!
 Unfortunately i did not do this when starting my proect, but what is more important is that i have finally learnt the concequences of not doing so.
 
-Another few thing that i struggled on and aim to improve on is giving smart names to variables and not repeating code that is already written (i think thats a hidden rule or something). I found myself repeating code multiple times this project due to they way i was getting user input through the GUI. These two problems became a huge problem the larger my codebase grew as it became extremely hard to read and navigate through without getting confused, and potentially writing code in the wrong places (i did that a few times).
+Another few thing that i struggled on and aim to improve on is giving smart names to variables and not repeating code that is already written (i think thats a hidden rule or something). I found myself repeating code multiple times this project due to they way i was getting user input through the GUI. These two things became a huge problem the larger my codebase grew as it became extremely hard to read and navigate through without getting confused and potentially writing code in the wrong places (i did that a few times).
 
 ## Built With
 
