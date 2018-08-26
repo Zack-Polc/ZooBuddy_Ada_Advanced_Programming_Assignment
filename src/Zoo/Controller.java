@@ -17,7 +17,6 @@ public class Controller {
     public Button keeperSubmitButton;
     public Button customPenSubmitButton;
     public Button saveButton;
-    public Button refreshButton;
 
     public Label landAnimalCounter;
     public Label waterAnimalCounter;
@@ -54,7 +53,6 @@ public class Controller {
     String errorMessagePetting = "Too many of the same animal: Petting";
     String errorMessageCustom = "Too many of the same animal: Custom";
 
-
     double numberOfAnimalsCanFit = 10;
 
     int customPenVolume;
@@ -72,7 +70,6 @@ public class Controller {
     Keeper alex = new Keeper("alex", water, mixed);
     Keeper farhad = new Keeper("farhad", air, water);
     Keeper hardip = new Keeper("hardip", land, air);
-
 
     HashMap landPens = new HashMap();
     HashMap waterPens = new HashMap();
@@ -239,12 +236,11 @@ public class Controller {
     public void handleAnimalSubmitButton() {
         String animalType;
 
-        // arraylist start at 0 so we plus 1 to size.
-        int landAnimalSize = landAnimals.size();
-        int waterAnimalSize = waterAnimals.size();
-        int airAnimalSize = airAnimals.size();
-        int pettingAnimalSize = pettingAnimals.size();
-        int mixedAnimalSize = mixedAnimals.size();
+        int landAnimalSize = landAnimals.size() + 1;
+        int waterAnimalSize = waterAnimals.size() + 1;
+        int airAnimalSize = airAnimals.size() + 1;
+        int pettingAnimalSize = pettingAnimals.size() + 1;
+        int mixedAnimalSize = mixedAnimals.size() + 1;
 
         animalType = animalTypeDropDown.getValue().toString();
 
